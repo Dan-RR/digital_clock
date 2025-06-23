@@ -1,0 +1,9 @@
+0.7
+2020.2
+May 22 2025
+00:13:55
+C:/Users/Daniel/Documents/VivadoLabs/digital_clock/digital_clock/digital_clock.sim/sim_1/behav/xsim/glbl.v,1741209010,verilog,,,,glbl,,uvm,,,,,,
+C:/Users/Daniel/Documents/VivadoLabs/digital_clock/digital_clock/digital_clock.srcs/sim_1/new/digital_clock_tb.sv,1750659210,systemVerilog,,,,digital_clock_tb,,uvm,../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef,,,,,
+C:/Users/Daniel/Documents/VivadoLabs/digital_clock/digital_clock/digital_clock.srcs/sources_1/new/bcd_to_7seg.sv,1750655506,systemVerilog,,C:/Users/Daniel/Documents/VivadoLabs/digital_clock/digital_clock/digital_clock.srcs/sources_1/new/clk_div.sv,,bcd_to_7seg,,uvm,../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef,,,,,
+C:/Users/Daniel/Documents/VivadoLabs/digital_clock/digital_clock/digital_clock.srcs/sources_1/new/clk_div.sv,1750659022,systemVerilog,,C:/Users/Daniel/Documents/VivadoLabs/digital_clock/digital_clock/digital_clock.srcs/sources_1/new/digital_clock.sv,,clk_div,,uvm,../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef,,,,,
+C:/Users/Daniel/Documents/VivadoLabs/digital_clock/digital_clock/digital_clock.srcs/sources_1/new/digital_clock.sv,1750654071,systemVerilog,,C:/Users/Daniel/Documents/VivadoLabs/digital_clock/digital_clock/digital_clock.srcs/sim_1/new/digital_clock_tb.sv,,digital_clock,,uvm,../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef,,,,,

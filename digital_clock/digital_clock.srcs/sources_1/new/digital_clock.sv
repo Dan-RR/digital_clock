@@ -9,8 +9,7 @@ module digital_clock(
 );
 
 wire clk_signal;        //  Señal de reloj para uso
-reg running = 0;        //
-reg prev_start_stop = 0;//  
+reg running = 0;        //  Señal que indica que el reloj esta en funcionamiento 
 
 /* Genera una señal de reloj a partir del reloj base
 y un parámetro de conteo de ciclos de reloj*/
@@ -22,44 +21,48 @@ clk_div clk_div_1 (
 
 /* Lógica de control de pausa/reanudar
 El inicio no está anclado a la señal de reloj lenta
-usada en el conteo de segundos */
+usada en el conteo de segundos. Lo unico que hace esto es
+setear running a 1 para que empiece a contar*/
 always @(posedge clk, negedge rstn) begin
     if (!rstn) begin
         running <= 0;
-        prev_start_stop <= 0;
     end else begin
-        if (start_stop && ~prev_start_stop)
-            running <= ~running;
-        prev_start_stop <= start_stop;
+        if (start_stop)
+            running <= 1;
+        else if (!start_stop)
+            running <= 0;
     end
 end
 
 // Registros para segundos y minutos
-reg [5:0] seconds = 0;
-reg [5:0] minutes = 0;
+reg [5:0] seconds = 0;  //  6 bits para contar hasta 59
+reg [5:0] minutes = 0;  //  6 bits para contar hasta 59
 
 always @(posedge clk_signal, negedge rstn) begin
     if (!rstn) begin
-        seconds <= 0;
+        seconds <= 0;                   //  regresa el conteo a 0
         minutes <= 0;
     end else if (running) begin
-        if (seconds == 59) begin
-            seconds <= 0;
-            if (minutes == 59)
-                minutes <= 0;
+        if (seconds == 59) begin        //  hace conteo hasta llegar al último valor
+            seconds <= 0;               //  y resetea
+            if (minutes == 59)          // Es necesario preguntar cual es el conteo de min
+                minutes <= 0;           // Si este llego al final hay que resetear tambien
             else
-                minutes <= minutes + 1;
+                minutes <= minutes + 1; // Si si no ha llegado al final aumnetar 1 al conteo
         end else begin
-            seconds <= seconds + 1;
+            seconds <= seconds + 1;     // Si no ha ocurrido nada de lo anterior sumar a seg
         end
+    end else if (!running) begin        // Si se cambia la señal de start/stop esta tambien cambia
+        seconds <= seconds;             // La cuenta se debe mantener
+        minutes <= minutes;             // igual aqui
     end
 end
 
 // Conversión a dígitos BCD
-wire [3:0] sec_units = seconds % 10;
-wire [3:0] sec_tens  = seconds / 10;
-wire [3:0] min_units = minutes % 10;
-wire [3:0] min_tens  = minutes / 10;
+wire [3:0] sec_units = seconds % 10;    //  el residuo de la div entre 10 la cuenta dara las undiades de seg
+wire [3:0] sec_tens  = seconds / 10;    //  la división entre diez dara las decenas de seg
+wire [3:0] min_units = minutes % 10;    //  Misma logica para unidades de minutos
+wire [3:0] min_tens  = minutes / 10;    //  E igual para decenas de minutos
 
 // Decodificadores BCD a 7 segmentos
 bcd_to_7seg bcd0 (.bcd(sec_units), .seg(hex0)); // segundos unidades
